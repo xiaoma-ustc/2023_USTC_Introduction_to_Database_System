@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>review.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0">数据库系统概论-复习笔记</h1>
+<blockquote>
+<p>Xiaoma</p>
+</blockquote>
+<h2 id="%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%BB%AA%E8%AE%BA">第一章-绪论</h2>
+<h3 id="%E4%B8%80%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0">一、数据库系统概述</h3>
+<h4 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%844%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">数据库的4个基本概念</h4>
+<ol>
+<li>
+<p>数据</p>
+<ul>
+<li>定义：数据是数据库中存储的基本对象，描述事物的符号记录称为称为数据。描述事物的符号可以是数字、文字、图像、音频等。</li>
+<li>特点：数据的表现形式不能完全表达内容；数据与其语义是不可分的。</li>
+</ul>
+</li>
+<li>
+<p>数据库</p>
+<ul>
+<li>定义：数据库是长期存储在计算机内、有组织、可共享的大量数据的集合。</li>
+<li>特点：
+<ol>
+<li>数据按照一定的数据模型组织、描述和存储</li>
+<li>为各种用户共享</li>
+<li>冗余度较小</li>
+<li>数据独立性较高</li>
+<li>易扩展</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>数据库管理系统</p>
+<ul>
+<li>定义：数据库管理系统是位于用户和操作系统之间的一层数据关系软件。数据库管理系统和操作系统一样是计算机的基础软件，也是一个大型复杂的软件系统。</li>
+<li>功能：
+<ol>
+<li>数据定义功能：
+<ul>
+<li>提供数据定义语言(DDL)</li>
+<li>定义数据库中的数据对象</li>
+</ul>
+</li>
+<li>数据组织、存储和管理：
+<ul>
+<li>分类组织、存储和管理各种数据</li>
+<li>确定组织数据的文件结构和存取方式</li>
+<li>实现数据之间的联系</li>
+<li>提供多种存取方法提高存取效率</li>
+</ul>
+</li>
+<li>数据操纵功能：
+<ul>
+<li>提供数据操纵语言(DML)</li>
+<li>实现对数据库的基本操作（查询、修改、插入和删除）</li>
+</ul>
+</li>
+<li>数据库的事务管理和运行管理：
+<ul>
+<li>数据库在建立、运行和维护时由DBMS统一管理和控制</li>
+<li>保证数据的安全性、完整性、多用户对数据的并发使用</li>
+<li>发生故障后的系统恢复</li>
+</ul>
+</li>
+<li>数据库的建立和维护功能：
+<ul>
+<li>数据库初始数据装载转换</li>
+<li>数据库转储，介质故障恢复</li>
+<li>数据库的重组织</li>
+<li>性能监控、分析等</li>
+</ul>
+</li>
+<li>其他功能：
+<ul>
+<li>DBMS与网络中其他软件系统的通信</li>
+<li>两个DBMS系统的数据转换</li>
+<li>异构数据库之间的互访和互操作</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>数据库系统</p>
+<ul>
+<li>定义：数据库系统在计算机系统引入数据库后的系统</li>
+<li>构成：
+<ol>
+<li>数据库</li>
+<li>数据库管理系统（及其开发工具）</li>
+<li>应用程序，应用系统</li>
+<li>数据库管理员</li>
+</ol>
+</li>
+<li>数据库系统如下图</li>
+</ul>
+<p><img src="./img/1.png" alt=""></p>
+<ul>
+<li>引入数据库后计算机的层次结构如图所示</li>
+</ul>
+<p><img src="./img/2.png" alt=""></p>
+</li>
+</ol>
+<h3 id="%E4%BA%8C%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E6%8A%80%E6%9C%AF%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E5%8F%91%E5%B1%95">二、数据管理技术的产生和发展</h3>
+<ol>
+<li>数据管理：
+<ul>
+<li>定义：对数据进行分类、组织、编码、存储、检索和维护</li>
+<li>数据处理的中心问题：对数据收集、存储、加工、传播、计算</li>
+</ul>
+</li>
+<li>数据管理的发展阶段
+在计算机硬件、软件发展的基础上，数据管理技术经历了人工管理、文件管理、数据库系统三个阶段，三个阶段的特点分别为</li>
+</ol>
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>人工管理</th><th>文件管理</th><th>数据库系统</th>
+    </tr>
+    <tr>
+        <td rowspan="4">背景</td>
+        <td>应用背景</td>
+        <td>科学计算</td>
+        <td>科学测算、数据管理</td>
+        <td>大规模数据管理</td>
+    </tr>
+    <tr>
+        <td>硬件背景</td>
+        <td>无直接存取存储设备</td>
+        <td>磁盘、磁鼓</td>
+        <td>大容量磁盘、磁盘阵列</td>
+    </tr>
+    <tr>
+        <td>软件背景</td>
+        <td>没有操作系统</td>
+        <td>没有文件系统</td>
+        <td>有数据库管理系统</td>
+    </tr>
+    <tr>
+        <td>处理方式</td>
+        <td>批处理</td>
+        <td>联机实时处理、批处理</td>
+        <td>联机实时处理、分布处理、批处理</td>
+    </tr>
+    <tr>
+        <td rowspan="6">特点</td>
+        <td>数据的管理者</td>
+        <td>用户</td>
+        <td>文件系统</td>
+        <td>数据库管理系统</td>
+    </tr>
+    <tr>
+        <td>数据面向的对象</td>
+        <td>某一应用程序</td>
+        <td>某一应用</td>
+        <td>现实世界</td>
+    </tr>
+    <tr>
+        <td>数据的共享程度</td>
+        <td>无共享、冗余度极大</td>
+        <td>共享性差、冗余度大</td>
+        <td>共享性高、冗余度小</td>
+    </tr>
+    <tr>
+        <td>数据独立性</td>
+        <td>不独立，完全依赖于程序</td>
+        <td>独立性差</td>
+        <td>具有高度的物理性和一定的逻辑独立性</td>
+    </tr>
+    <tr>
+        <td>数据的结构化</td>
+        <td>无结构</td>
+        <td>记录内有结构，整体无结构</td>
+        <td>整体结构化，用数据模型描述</td>
+    </tr>
+    <tr>
+        <td>数据控制能力</td>
+        <td>应用程序自己控制</td>
+        <td>应用程序自己控制</td>
+        <td>有数据库管理系统提供数据安全性、完整性、并发控制和恢复能力</td>
+    </tr>
+</table>
+<h3 id="%E4%B8%89%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B">三、数据模型</h3>
+<ol>
+<li>定义：数据模型(data model)是对现实世界数据特征的抽象，是用来描述数据、组织数据和对数据进行操作的模型。</li>
+<li>组成要素：数据结构、数据操作、完整性约束条件</li>
+<li>分类：
+<ol>
+<li>概念模型：概念模型(conceptual model)也称信息模型，它是按用户的观点来对数据和信息建模，主要用于数据库设计。</li>
+<li>逻辑模型和物理模型：逻辑模型主要包括层次模型(hierarchical model)、网状模型(network model)、关系模型(relational model)、面向对象数据模型(object oriented data model)和对象关系数据模型(object relational data model)、半结构化数据模型(semistructured data model)等。它是按照计算机系统的观点对数据建模，主要用于DBMS的实现；物理模型是对数据最底层的抽象，它描述数据在系统内部的表示方式和存取方法，或在磁盘或磁带上的存储方式和存取方法，是面向计算机系统的。</li>
+</ol>
+</li>
+<li>概念模型：
+<ol>
+<li>特点：
+<ol>
+<li>较强的语义表达能力</li>
+<li>能够方便、直接地表达应用中的各种语义知识</li>
+<li>简单、清晰、易于用户理解</li>
+</ol>
+</li>
+<li>基本概念：
+<ol>
+<li>实体：客观存在并可相互区别的事物成为实体。可以是具体的人、事、物或抽象的概念</li>
+<li>属性：实体所具有的某一特性称为属性。一个实体可以由若干个属性来刻画。</li>
+<li>码：唯一标识实体的属性集称为码。</li>
+<li>域：属性的取值范围称为该属性的域。</li>
+<li>实体型：用实体名及其属性名集合来抽象和刻画同类实体称为实体型。</li>
+<li>实体集：同一类型实体的集合称为实体集。</li>
+<li>联系</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>常用的数据模型：
+<ol>
+<li>层次模型：
+<ol>
+<li>概述：层次模型是数据库中最早出现的数据模型，层次模型用树形结构来表示各类实体以及实体间的联系。</li>
+<li>数据结构：
+<ol>
+<li>有且只有一个节点没有双亲节点，这个节点称为根节点</li>
+<li>根以外的其他节点有且只有一个双亲节点</li>
+</ol>
+</li>
+<li>数据操纵与完整性约束：
+<ol>
+<li>查询、插入、删除、更新</li>
+<li>导航式查询方式</li>
+<li>无相应的双亲节点值就不能插入子女节点值</li>
+<li>如果删除双亲节点值，则相应的子女节点也被同时删除</li>
+<li>更新操作时，应更新所有相关记录，以保证数据一致性</li>
+</ol>
+</li>
+<li>优点：
+<ol>
+<li>层次模型的数据结构比较简单清晰</li>
+<li>查询效率高，性能优于关系模型，不低于网状模型</li>
+<li>层次数据模型提供了良好的完整性支持</li>
+</ol>
+</li>
+<li>缺点：
+<ol>
+<li>节点之间的多对多联系表示不自然</li>
+<li>对插入和删除操作的限制多，应用程序的编写比较复杂</li>
+<li>查询子女节点必须通过双亲节点</li>
+<li>由于结构严密，层次命令趋于程序化</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>网状模型：
+<ol>
+<li>概述：网状数据库系统采用网状模型作为数据的组织方式，典型代表是DBTG系统。层次模型实际上是网状模型的一个特例。</li>
+<li>数据结构：
+<ol>
+<li>网状模型允许多个节点没有双亲节点</li>
+<li>网状模型允许结点有多个双亲结点</li>
+<li>网状模型允许两个结点之间有多种联系</li>
+</ol>
+</li>
+<li>数据操纵与完整性约束：
+<ol>
+<li>码：唯一标识记录的数据项的集合</li>
+<li>一个联系中双亲记录与子女记录之间是一对多联系</li>
+<li>支持双亲记录和子女记录之间的某些约束条件</li>
+</ol>
+</li>
+<li>优点：
+<ol>
+<li>能够更为直接地描述现实世界</li>
+<li>具有更好的性能，存取效率较高</li>
+</ol>
+</li>
+<li>缺点：
+<ol>
+<li>结构比较复杂，而且随着应用环境的扩大，数据结构就变得越来越复杂，不利于最终用户掌握</li>
+<li>DDL、DML语言复杂，用户不容易使用</li>
+<li>编写应用程序负担比较大</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>关系模型：
+<ol>
+<li>概述：关系数据库系统采用关系模型作为数据的组织方式，计算机厂商新推出的数据库管理系统几乎都支持关系模型。</li>
+<li>数据结构：
+<ol>
+<li>关系：一个关系对应通常说的一张表</li>
+<li>元组：表中的一行即为一个元组</li>
+<li>属性：表中的一列即为一个属性，给每个属性起一个名称即属性名</li>
+<li>主码：表中的某个属性组，它可以唯一确定一个元组</li>
+<li>域：属性的取值范围</li>
+<li>分量：元组中的一个属性值</li>
+<li>关系模式：对关系的描述</li>
+</ol>
+</li>
+<li>数据操纵与完整性约束：
+<ol>
+<li>查询、插入、删除、更新</li>
+<li>获取路径对用户隐蔽</li>
+<li>实体完整性</li>
+<li>参照完整性</li>
+<li>用户定义完整性</li>
+</ol>
+</li>
+<li>优点：
+<ol>
+<li>建立在严格的数学概念基础上</li>
+<li>概念单一：
+<ol>
+<li>实体和各类联系都用关系来表示</li>
+<li>对数据的检索结果也是关系</li>
+</ol>
+</li>
+<li>关系模型的存取路径对用户透明：
+<ol>
+<li>具有更高数据独立性，更好的安全保密工作</li>
+<li>简化程序员的工作和数据库开发建立的工作</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>缺点：
+<ol>
+<li>存取路径对用户透明导致查询效率往往不如非关系数据模型</li>
+<li>为提高性能，必须对用户的查询请求进行优化，增加了开发DBMS的难度</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="%E5%9B%9B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84">四、数据库系统结构</h3>
+<ol>
+<li>概念：
+<ol>
+<li>数据模型</li>
+<li>模式</li>
+<li>实例</li>
+</ol>
+</li>
+<li>数据库管理系统角度：数据库系统通常采用三级模式结构
+<ol>
+<li>模式：
+<ol>
+<li>数据的逻辑结构（数据项的名字、类型、取值范围等）</li>
+<li>数据之间的联系（与文件系统区别）</li>
+<li>数据有关的安全性、完整性要求（共享带来的需求）</li>
+<li>DBMS用DDL严格定义模式</li>
+<li>一个数据库只有一个模式</li>
+</ol>
+</li>
+<li>外模式：数据库用户能够看见和使用的局部数据的逻辑结构和特征的描述，是数据库用户的数据视图，是与某一应用有关的数据的逻辑表示。外模式通常是模式的子集，一个数据库可以有多个外模式</li>
+<li>内模式：
+<ol>
+<li>数据物理结构和存储方式的描述</li>
+<li>数据在数据库内部的表示方法</li>
+<li>一个数据库只有一个内模式</li>
+<li>DBMS定义域管理</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>数据库最终用户角度：数据库的结构分为单用户结构、主从式结构、分布式结构、客户/服务器、浏览器/应用服务器/数据库服务器多层结构等</li>
+<li>数据库的二级映像功能与数据独立性
+<ol>
+<li>三级模式是对数据的三个抽象级别</li>
+<li>数据与程序的独立性：数据的逻辑或物理结构发生变化，应用程序不需改变</li>
+<li>外模式/模式映像：
+<ol>
+<li>模式：描述的是数据的全局逻辑结构</li>
+<li>外模式：描述的是数据的局部逻辑结构：
+<ol>
+<li>同一模式可以有任意多个外模式</li>
+<li>每个外模式，数据库系统都有一个外模式/模式映像，定义外模式与模式之间的对应关系</li>
+<li>映像定义通常包含在各自外模式的描述中</li>
+</ol>
+</li>
+<li>保证数据的逻辑独立性：
+<ol>
+<li>当模式改变时，数据库管理员修改有关的外模式/模式映像，可以使外模式保持不变</li>
+<li>应用程序是依据数据的外模式编写的，从而应用程序不必修改，保证了数据的逻辑独立性</li>
+<li>外模式/模式映像可以保证获得一定程度的数据的逻辑独立性</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>模式/内模式映像：
+<ol>
+<li>模式/内模式映像定义了数据全局逻辑结构与存储结构之间的对应关系</li>
+<li>模式/内模映像是唯一的，该映像定义通常包含在模式描述中</li>
+<li>保证数据的物理独立性：
+<ol>
+<li>当数据库的存储结构改变后，修改模式/内模式映像，使模式保持不变</li>
+<li>保证数据与程序的物理独立性</li>
+<li>模式/内模式映像保证获得完全的数据物理独立性</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="%E4%BA%94%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E6%88%90">五、数据库系统的组成</h3>
+<ol>
+<li>硬件平台及数据库</li>
+<li>软件</li>
+<li>人员</li>
+</ol>
+<h2 id="%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93">第二章、关系数据库</h2>
+<h3 id="%E4%B8%80%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%AE%9A%E4%B9%89">一、关系数据结构及形式化定义</h3>
+<ol>
+<li>
+<p>关系</p>
+<p>关系模型的数据结构只包含单一的数据结构：关系；逻辑结构为二维表；建立在集合代数的基础上。关系可分为基本关系、查询表、视图表。</p>
+<ol>
+<li>域：一组具有相同数据结构的集合</li>
+<li>笛卡尔积：笛卡尔积是域上的一种集合运算，$D_{1},D_{2},...,D_{n}$的笛卡尔积为$D_{1} \times D_{2} \times ... \times D_{n} = {(d_{1},d_{2},...,d_{n}) | d_{i} \in D_{i}, i = 1,2,...,n}$，其中每一个元素$(d_{1},d_{2},...,d_{n})$是一个元组。笛卡尔积可表示为一个二维表。表中的每一行对应一个元组，每一列的值来自一个域。一个域允许的不同取值个数为这个域的基数。</li>
+<li>关系：$D_{1} \times D_{2} \times ... \times D_{n}$的子集称作在域$D_{1},D_{2},...,D_{n}$的关系，表示为$R(D_{1},D_{2},...,D_{n})$。$R$表示关系的名字，n是关系的目或度。关系中的每个元素是关系中的元组，关系是笛卡尔积的有限子集，所以关系也是一张二维表，表的每行对应一个元组，每列对应一个域。若关系中的某一属性组能够唯一的标识一个元组，则称该属性组为候选码。若一个关系有多个候选码，则选定其中一个为主码，候选码的属性成为主属性。不包含在任何候选码中的属性成为非主属性。</li>
+<li>基本关系的性质
+<ol>
+<li>列是同质的</li>
+<li>不同的列可以出自同一个域，每一列为一个属性，要给予不同的属性名</li>
+<li>列的顺序无所谓</li>
+<li>任意两个元组的候选码值不能相同</li>
+<li>行的顺序无所谓</li>
+<li>分类必须取原子值（符合1NF）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>关系模式：关系数据库中，关系模式是型，关系是值。关系模式是对关系的描述，它可以形式化的表示为$R(U,D,DOM,F)$，其中$R$为关系名，$U$为组成关系的属性名集合，$D$为$U$中属性的所来自的域，$DOM$为属性向域的映像集合，$F$为属性间数据的依赖关系集合。关系是关系模式在某一时刻的状态或内容。关系模式是静态的、稳定的，而关系是动态的、随时间不断变化的。</p>
+</li>
+<li>
+<p>关系数据库：关系数据库的型为关系数据库模式，关系数据库模式包括若干域的定义和这些域上定义的若干关系模式。关系数据库的值为关系模式在某一时刻对应的关系集合。</p>
+</li>
+<li>
+<p>关系模型的存储结构：在关系数据库的物理组织中，有的关系数库管理系统中的一个表对应一个操作系统文件，将物理数据组织交给操作系统完成；有的关系数据库管理系统从操作系统哪里申请若干个大文件，自己划分文件空间，组织表、索引等存储结构，并进行存储管理。</p>
+</li>
+</ol>
+<h3 id="%E4%BA%8C%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C">二、关系操作</h3>
+<ol>
+<li>
+<p>基本的关系操作</p>
+<ol>
+<li>查询：选择，投影，连接，除，并，差，交，笛卡尔积等</li>
+<li>插入、删除、修改等</li>
+</ol>
+</li>
+<li>
+<p>关系数据库语言的分类</p>
+<p>$\text{关系数据语言}\begin{cases}
+\text{关系代数语言（例如ISBL）}\
+\text{关系演算语言}\begin{cases}\text{元组关系演算语言（例如ALPHA，QUEL}\
+\text{域关系演算语言（例如QBE）}\end{cases}
+\
+\text{具有关系代数和关系演算双重特点的语言（例如SQL）}
+\end{cases}$</p>
+</li>
+<li>
+<p>关系完整性</p>
+<ol>
+<li>实体完整性
+<ol>
+<li>定义：</li>
+</ol>
+</li>
+<li>参照完整性</li>
+<li>用户定义完整性</li>
+</ol>
+</li>
+</ol>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>
